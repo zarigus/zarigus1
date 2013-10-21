@@ -1,15 +1,14 @@
 var express = require('express');
 var app = express();
-var https = require('https');
+var fs = require('fs');
+var buf = fs.readFileSync("index.html");
 
-app.use(express.static(__dirname));
+app.use(express.logger());
 
 app.get('/', function(request, response) {
-    console.log('app.get slash');
-
-    var file = fs.readFileSync('index.html',{encoding:'utf8'});
-  rsponse.send(file)
+  response.send(buf.toString());
 });
+
 
 var port = process.env.PORT || 5000;
 app.listen(port, function() {
